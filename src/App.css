@@ -1,0 +1,11 @@
+/* App.css - Global styles for the application */
+
+/* Add any global application styles here */
+/* For now, we'll keep it minimal since most styling is handled by Tailwind */
+
+.app-container {
+    min-height: 100vh;
+    background-color: #f9fafb;
+}
+
+/* Additional utility classes if needed */
