@@ -8,6 +8,7 @@ export default function JobCard({
     company = "Revolut",
     location = "Madrid, Spain",
     type = "Full Time",
+    salary = "",
     description = "Revolut is looking for Email Marketing to help team ma...",
     tags = ["Marketing", "Design"],
 }) {
@@ -71,6 +72,11 @@ export default function JobCard({
             mb-1
           ">
                         {company} • {location}
+                        {salary && (
+                            <span className="block text-green-600 font-medium">
+                                {salary}
+                            </span>
+                        )}
                     </p>
                 </div>
             </div>

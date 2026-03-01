@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import logo from '../../assets/logo.png'
 
 
@@ -17,9 +18,9 @@ export default function Header() {
                 {/* Nav links + Auth buttons */}
 
                 <nav className="hidden md:flex items-center gap-8">
-                    <a href="#" className="text-gray-700 hover:text-blue-600 font-medium transition-colors">
+                    <Link to="/jobs" className="text-gray-700 hover:text-blue-600 font-medium transition-colors">
                         Find Jobs
-                    </a>
+                    </Link>
                     <a href="#" className="text-gray-700 hover:text-blue-600 font-medium transition-colors">
                         Browse Companies
                     </a>

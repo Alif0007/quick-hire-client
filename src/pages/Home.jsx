@@ -1,3 +1,5 @@
+import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import Hero from '../components/Hero';
 import SectionHeader from '../components/SectionHeader';
@@ -103,6 +105,39 @@ const mockJobs = [
 ];
 
 export default function Home() {
+    const [jobs, setJobs] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        const loadJobs = async () => {
+            try {
+                setLoading(true);
+                const response = await fetchJobs();
+                // Handle both direct array and {success: true, data: [...]} structures
+                let jobsData;
+                if (Array.isArray(response)) {
+                    jobsData = response;
+                } else if (response && response.data && Array.isArray(response.data)) {
+                    jobsData = response.data;
+                } else {
+                    jobsData = [];
+                }
+                setJobs(jobsData);
+            } catch (err) {
+                setError('Failed to load jobs');
+                console.error('Error loading jobs:', err);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        loadJobs();
+    }, []);
+
+    // Use real jobs data or fallback to mock data
+    const displayJobs = jobs.length > 0 ? jobs : mockJobs;
+
     return (
         <div className="min-h-screen bg-gray-50">
             <Header />
@@ -128,18 +163,47 @@ export default function Home() {
             <section className="px-6 md:px-12 lg:px-24 py-16 bg-white">
                 <SectionHeader title="Featured jobs" />
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                    {mockJobs.slice(0, 8).map((job, i) => (
-                        <JobCard key={i} {...job} />
+                    {displayJobs.slice(0, 8).map((job, i) => (
+                        <JobCard
+                            key={job._id || i}
+                            companyInitial={job.company?.charAt(0) || 'C'}
+                            companyColor="bg-blue-500"
+                            jobTitle={job.title}
+                            company={job.company}
+                            location={job.location}
+                            type={job.type}
+                            salary={job.salary}
+                            description={job.description}
+                            tags={job.tags || job.requirements || []}
+                        />
                     ))}
+                </div>
+                <div className="text-center mt-12">
+                    <Link
+                        to="/jobs"
+                        className="inline-block bg-blue-600 text-white px-8 py-4 rounded-lg hover:bg-blue-700 transition-colors font-semibold text-lg"
+                    >
+                        View All Jobs
+                    </Link>
                 </div>
             </section>
 
             {/* Latest Jobs */}
             <section className="px-6 md:px-12 lg:px-24 py-16 bg-gray-50">
                 <SectionHeader title="Latest jobs" />
-                <div className="grid grid-cols-1 lg:grid-cols-2  gap-6">
-                    {mockJobs.map((job, i) => (
-                        <LatestJobCard key={`latest-${i}`} {...job} />
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    {displayJobs.map((job, i) => (
+                        <LatestJobCard
+                            key={`latest-${job._id || i}`}
+                            jobId={job._id}
+                            logo={{ text: job.company?.charAt(0) || 'C', bg: 'bg-blue-500' }}
+                            company={job.company}
+                            title={job.title}
+                            location={job.location}
+                            type={job.type}
+                            tags={job.tags || job.requirements || []}
+                            description={job.description}
+                        />
                     ))}
                 </div>
             </section>

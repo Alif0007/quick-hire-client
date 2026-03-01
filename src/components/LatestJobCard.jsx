@@ -2,14 +2,17 @@
 import React from 'react';
 
 export default function LatestJobCard({
-    logoBg = "bg-emerald-500",
-    logoText = "N",
-    jobTitle = "Social Media Assistant",
+    jobId,
+    logo = { text: "N", bg: "bg-emerald-500" },
+    title = "Software Engineer",
     company = "Nomad",
     location = "Paris, France",
     type = "Full-Time",
     tags = ["Marketing", "Design"],
+    description = "",
 }) {
+    const logoBg = logo.bg || "bg-emerald-500";
+    const logoText = logo.text || "N";
     return (
         <div className="
       bg-white 
@@ -48,7 +51,7 @@ export default function LatestJobCard({
             mb-1.5 
             leading-tight
           ">
-                        {jobTitle}
+                        {title}
                     </h3>
 
                     <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3 text-gray-600">
