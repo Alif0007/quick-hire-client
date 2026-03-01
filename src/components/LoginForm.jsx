@@ -11,10 +11,10 @@ export default function LoginForm({ onLogin, title = "Login", hint = "admin123" 
     return (
         <div className="flex items-center justify-center min-h-screen bg-gray-50">
             <div className="bg-white p-8 rounded-xl shadow-lg w-full max-w-md">
-                <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">{title}</h2>
+                <h2 className="text-2xl font-bold text-center text-gray-800 mb-6 font-playfair">{title}</h2>
                 <form onSubmit={handleSubmit}>
                     <div className="mb-4">
-                        <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
+                        <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1 font-epilogue">
                             Password
                         </label>
                         <input
@@ -27,7 +27,7 @@ export default function LoginForm({ onLogin, title = "Login", hint = "admin123" 
                             required
                         />
                         {hint && (
-                            <p className="mt-2 text-sm text-gray-500">Hint: {hint}</p>
+                            <p className="mt-2 text-sm text-gray-500 font-epilogue">Hint: {hint}</p>
                         )}
                     </div>
                     <button

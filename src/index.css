@@ -1,10 +1,13 @@
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Epilogue:wght@300;400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 body {
     margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    font-family: 'Epilogue', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
         'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
         sans-serif;
     -webkit-font-smoothing: antialiased;
@@ -23,4 +26,47 @@ body {
 
 .tag-badge {
     @apply inline-block px-3 py-1 text-xs font-semibold rounded-full;
+}
+
+/* Font utility classes */
+.font-playfair {
+    font-family: 'Playfair Display', serif;
+}
+
+.font-epilogue {
+    font-family: 'Epilogue', sans-serif;
+}
+
+/* Apply Playfair Display to all headings and bold content */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.font-bold,
+.font-semibold,
+.font-extrabold,
+.font-black,
+.font-heading {
+    font-family: 'Playfair Display', serif;
+}
+
+/* Apply Epilogue to all other text */
+p,
+span,
+div,
+li,
+td,
+th,
+label,
+input,
+textarea,
+button,
+.font-regular,
+.font-normal,
+.font-light,
+.font-thin,
+.font-body {
+    font-family: 'Epilogue', sans-serif;
 }
