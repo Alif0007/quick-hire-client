@@ -1,5 +1,5 @@
 // src/pages/Dashboard.jsx
-import React from 'react';
+import React, { useState } from 'react';
 import {
     LayoutDashboard,
     MessageSquare,
@@ -14,7 +14,12 @@ import {
     ChevronDown,
     Eye,
     Download,
+    Menu,
+    X,
 } from 'lucide-react';
+import LoginForm from '../components/LoginForm';
+import JobPostModal from '../components/JobPostModal';
+import { addJob } from '../services/api';
 import { Bar } from 'react-chartjs-2';
 import {
     Chart as ChartJS,
@@ -29,6 +34,10 @@ import {
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 export default function Dashboard() {
+    const [sidebarOpen, setSidebarOpen] = useState(false);
+    const [authenticated, setAuthenticated] = useState(false);
+    const [showJobModal, setShowJobModal] = useState(false);
+
     // Mock data for chart
     const chartData = {
         labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
@@ -59,16 +68,61 @@ export default function Dashboard() {
         },
     };
 
+    const handleLogin = (password) => {
+        if (password === 'admin123') {
+            setAuthenticated(true);
+        } else {
+            alert('Invalid password. Please try again.');
+        }
+    };
+
+    const handlePostJob = async (jobData) => {
+        try {
+            const response = await addJob(jobData);
+            if (response.success) {
+                // Success is now handled by the modal's success alert
+                return response;
+            } else {
+                throw new Error(response.message || 'Unknown error');
+            }
+        } catch (error) {
+            console.error('Error posting job:', error);
+            throw error;
+        }
+    };
+
+    if (!authenticated) {
+        return <LoginForm onLogin={handleLogin} title="Dashboard Login" hint="admin123" />;
+    }
+
     return (
         <div className="flex h-screen bg-gray-50">
+            {/* Mobile sidebar backdrop */}
+            {sidebarOpen && (
+                <div
+                    className="fixed inset-0 z-20 bg-black bg-opacity-50 md:hidden"
+                    onClick={() => setSidebarOpen(false)}
+                ></div>
+            )}
+
             {/* Sidebar */}
-            <aside className="hidden md:flex md:flex-col w-64 bg-white border-r border-gray-200">
+            <aside
+                className={`fixed md:relative z-30 inset-y-0 left-0 transform ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0 transition-transform duration-300 ease-in-out w-64 bg-white border-r border-gray-200 md:flex md:flex-col h-full`}>
                 <div className="p-6 border-b border-gray-200">
-                    <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold text-xl">
-                            Q
+                    <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-3">
+                            <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold text-xl">
+                                Q
+                            </div>
+                            <span className="text-xl font-bold text-gray-900">QuickHire</span>
                         </div>
-                        <span className="text-xl font-bold text-gray-900">QuickHire</span>
+                        {/* Close button for mobile */}
+                        <button
+                            className="md:hidden text-gray-500 hover:text-gray-700"
+                            onClick={() => setSidebarOpen(false)}
+                        >
+                            <X size={24} />
+                        </button>
                     </div>
                 </div>
 
@@ -117,6 +171,13 @@ export default function Dashboard() {
                 {/* Top Bar */}
                 <header className="bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between">
                     <div className="flex items-center gap-4">
+                        {/* Hamburger menu for mobile */}
+                        <button
+                            className="md:hidden text-gray-600 hover:text-gray-900"
+                            onClick={() => setSidebarOpen(true)}
+                        >
+                            <Menu size={24} />
+                        </button>
                         <div className="flex items-center gap-2">
                             <div className="w-8 h-8 bg-emerald-500 rounded-lg flex items-center justify-center text-white font-bold">
                                 N
@@ -126,9 +187,18 @@ export default function Dashboard() {
                         </div>
                     </div>
 
-                    <div className="flex items-center gap-6">
+                    <div className="flex items-center gap-4">
+                        <button
+                            onClick={() => setAuthenticated(false)}
+                            className="px-4 py-2 text-gray-600 hover:text-gray-800 font-medium"
+                        >
+                            Logout
+                        </button>
                         <Bell size={20} className="text-gray-600 cursor-pointer" />
-                        <button className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                        <button
+                            onClick={() => setShowJobModal(true)}
+                            className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+                        >
                             <Plus size={18} />
                             Post a job
                         </button>
@@ -289,6 +359,13 @@ export default function Dashboard() {
                     </div>
                 </main>
             </div>
+
+            {/* Job Post Modal */}
+            <JobPostModal
+                isOpen={showJobModal}
+                onClose={() => setShowJobModal(false)}
+                onSubmit={handlePostJob}
+            />
         </div>
     );
 }
