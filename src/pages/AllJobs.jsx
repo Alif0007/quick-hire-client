@@ -166,6 +166,7 @@ export default function AllJobs() {
                         {filteredJobs.map((job) => (
                             <JobCard
                                 key={job._id}
+                                jobId={job._id}
                                 companyInitial={job.company?.charAt(0) || 'C'}
                                 companyColor="bg-blue-500"
                                 jobTitle={job.title}

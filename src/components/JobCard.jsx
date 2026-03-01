@@ -1,7 +1,9 @@
 // src/components/JobCard.jsx
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export default function JobCard({
+    jobId,
     companyInitial = "R",
     companyColor = "bg-red-500",
     jobTitle = "Email Marketing",
@@ -13,18 +15,21 @@ export default function JobCard({
     tags = ["Marketing", "Design"],
 }) {
     return (
-        <div className="
+        <Link
+            to={`/job/${jobId}`}
+            className="
       relative 
       bg-white 
       border border-blue-200 
-      
+      block
       p-5 md:p-6 
       hover:shadow-lg 
       hover:border-gray-300 
       transition-all duration-200 
       group
-     
-    ">
+      cursor-pointer
+    "
+        >
             {/* Full Time badge - top right */}
             <div className="
         absolute 
@@ -120,6 +125,6 @@ export default function JobCard({
         pointer-events-none
         rounded-xl
       "></div>
-        </div>
+        </Link>
     );
 }

@@ -1,5 +1,6 @@
 // src/components/JobCard.jsx
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export default function LatestJobCard({
     jobId,
@@ -14,7 +15,9 @@ export default function LatestJobCard({
     const logoBg = logo.bg || "bg-emerald-500";
     const logoText = logo.text || "N";
     return (
-        <div className="
+        <Link
+            to={`/job/${jobId}`}
+            className="
       bg-white 
       border border-gray-200 
       rounded-xl 
@@ -25,7 +28,10 @@ export default function LatestJobCard({
       group
       relative
       overflow-hidden
-    ">
+      block
+      cursor-pointer
+    "
+        >
             {/* Logo + Title + Company/Location */}
             <div className="flex items-start gap-4 mb-4">
                 {/* Company logo/initial */}
@@ -99,6 +105,6 @@ export default function LatestJobCard({
             </div>
 
 
-        </div>
+        </Link>
     );
 }

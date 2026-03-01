@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { X } from 'lucide-react';
+import { submitApplication } from '../services/api';
 
 const JobApplicationModal = ({ jobId, jobTitle, onClose }) => {
     const [formData, setFormData] = useState({
@@ -67,33 +68,36 @@ const JobApplicationModal = ({ jobId, jobTitle, onClose }) => {
         setSubmitting(true);
 
         try {
-            // In a real app, this would be an API call
-            // const response = await fetch('/api/applications', {
-            //   method: 'POST',
-            //   headers: {
-            //     'Content-Type': 'application/json',
-            //   },
-            //   body: JSON.stringify({
-            //     jobId,
-            //     ...formData
-            //   }),
-            // });
+            // Prepare application data
+            const applicationData = {
+                jobId,
+                jobTitle, // Include the job title in the application
+                applicantName: formData.name,
+                email: formData.email,
+                resume: formData.resumeLink,
+                coverLetter: formData.coverNote,
+            };
 
-            // Simulate API call
-            await new Promise(resolve => setTimeout(resolve, 1000));
+            // Submit application via API
+            const response = await submitApplication(applicationData);
 
-            setSubmitted(true);
+            if (response.success) {
+                setSubmitted(true);
 
-            // Reset form after successful submission
-            setTimeout(() => {
-                setFormData({
-                    name: '',
-                    email: '',
-                    resumeLink: '',
-                    coverNote: ''
-                });
+                // Reset form after successful submission
+                setTimeout(() => {
+                    setFormData({
+                        name: '',
+                        email: '',
+                        resumeLink: '',
+                        coverNote: ''
+                    });
+                    setSubmitting(false);
+                }, 2000);
+            } else {
+                console.error('Application submission failed:', response);
                 setSubmitting(false);
-            }, 2000);
+            }
         } catch (error) {
             console.error('Error submitting application:', error);
             setSubmitting(false);
@@ -113,7 +117,7 @@ const JobApplicationModal = ({ jobId, jobTitle, onClose }) => {
                     <p className="text-gray-600 mb-6">Your application for {jobTitle} has been received. We'll contact you soon.</p>
                     <button
                         onClick={onClose}
-                        className="w-full bg-primary-600 hover:bg-primary-700 text-white font-semibold py-3 px-4 rounded-lg transition duration-300"
+                        className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-4 rounded-lg transition duration-300"
                     >
                         Close
                     </button>

@@ -166,6 +166,7 @@ export default function Home() {
                     {displayJobs.slice(0, 8).map((job, i) => (
                         <JobCard
                             key={job._id || i}
+                            jobId={job._id}
                             companyInitial={job.company?.charAt(0) || 'C'}
                             companyColor="bg-blue-500"
                             jobTitle={job.title}
