@@ -5,6 +5,7 @@ import CategoryCard from '../components/CategoryCard';
 import JobCard from '../components/JobCard';
 import Footer from '../components/Footer';
 import { fetchJobs } from '../services/api';
+import LatestJobCard from '../components/LatestJobCard';
 
 // Mock data (later replace with API fetch)
 const categories = [
@@ -136,9 +137,9 @@ export default function Home() {
             {/* Latest Jobs */}
             <section className="px-6 md:px-12 lg:px-24 py-16 bg-gray-50">
                 <SectionHeader title="Latest jobs" />
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                <div className="grid grid-cols-1 lg:grid-cols-2  gap-6">
                     {mockJobs.map((job, i) => (
-                        <JobCard key={`latest-${i}`} {...job} />
+                        <LatestJobCard key={`latest-${i}`} {...job} />
                     ))}
                 </div>
             </section>

@@ -5,7 +5,7 @@ export default function Header() {
     return (
         <header className="flex items-center justify-between  py-3 border-b">
             {/* Header / Navigation */}
-            <div className="relative z-20 container mx-auto px-6 md:px-10 lg:px-16 pt-6 flex items-center justify-between">
+            <div className="relative z-20 container mx-auto px-6 md:px-10 lg:px-16 pt-2 flex items-center justify-between">
                 {/* Logo + brand name */}
                 <div className="flex items-center gap-3">
                     <div className="w-10 h-10 md:w-11 md:h-11">
