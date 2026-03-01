@@ -22,7 +22,7 @@ export default function HeroSection() {
 
 
             {/* Main hero content */}
-            <div className="relative z-10 container mx-auto px-6 md:px-10 lg:px-16 pt-12 md:pt-20 lg:pt-28 pb-20 lg:pb-32 flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-20">
+            <div className="relative z-10 container mx-auto px-6 md:px-10 lg:px-16 pt-12 md:pt-20 lg:pt-28  flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-20">
                 {/* Left - Text content */}
                 <div className="w-full lg:w-1/2 text-left">
                     <h1 className=" text-7xl font-extrabold text-gray-900 leading-tight tracking-tight">
@@ -109,7 +109,7 @@ export default function HeroSection() {
             </div>
 
             {/* Companies we helped grow */}
-            <div className="relative z-10 mt-16 md:mt-24 pb-20  px-6 bg-white pt-3">
+            <div className="relative z-10   pb-12 px-6 bg-white pt-8">
                 <p className="text-gray-500 uppercase tracking-widest text-sm md:text-base font-medium pl-5">
                     Companies we helped grow
                 </p>

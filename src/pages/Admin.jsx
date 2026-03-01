@@ -132,6 +132,7 @@ export default function Admin() {
     if (!authenticated) {
         return (
             <div className="min-h-screen bg-gray-50">
+
                 <Header />
                 <div className="flex items-center justify-center min-h-[60vh]">
                     <div className="bg-white p-8 rounded-xl shadow-lg w-full max-w-md">
@@ -384,9 +385,9 @@ export default function Admin() {
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap">
                                                 <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${job.type === 'Full Time' ? 'bg-green-100 text-green-800' :
-                                                        job.type === 'Part Time' ? 'bg-blue-100 text-blue-800' :
-                                                            job.type === 'Remote' ? 'bg-purple-100 text-purple-800' :
-                                                                'bg-gray-100 text-gray-800'
+                                                    job.type === 'Part Time' ? 'bg-blue-100 text-blue-800' :
+                                                        job.type === 'Remote' ? 'bg-purple-100 text-purple-800' :
+                                                            'bg-gray-100 text-gray-800'
                                                     }`}>
                                                     {job.type}
                                                 </span>
