@@ -62,7 +62,7 @@ QuickHire is a comprehensive job board application that connects job seekers wit
 
    For the frontend, create a `.env` file in the frontend root directory with the following variable:
    ```
-   VITE_API_BASE_URL=http://localhost:5000/api
+   VITE_API_BASE_URL=https://quick-hire-server-snowy.vercel.app/api
    ```
    
    For the backend, create a `.env` file in the backend root directory with the following variables:
@@ -206,6 +206,3 @@ The frontend communicates with the backend API for:
 5. Push to the branch (`git push origin feature/amazing-feature`)
 6. Open a Pull Request
 
-## License
-
-This project is licensed under the MIT License.
